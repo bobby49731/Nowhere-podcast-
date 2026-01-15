@@ -1,0 +1,523 @@
+index.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NOWHERE — Story Podcast</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="A girl and her uncle discover The Forgotten Place—and must fight to keep the good part alive, and the bad part from getting out." />
+  <meta name="theme-color" content="#050507" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NOWHERE — Story Podcast" />
+  <meta property="og:description" content="A girl and her uncle discover The Forgotten Place—and must fight to keep the good part alive, and the bad part from getting out." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/assets/nowhere-cover.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root{
+      --bg:#050507;
+      --bg2:#07070b;
+      --text:#f3f3f6;
+      --muted:#b8b8c4;
+      --line:rgba(255,255,255,.12);
+      --soft:rgba(255,255,255,.06);
+      --radius:22px;
+      --max:1100px;
+      --gold: rgba(255, 214, 140, .9);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(900px 700px at 70% -10%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(700px 500px at 15% 20%, rgba(255,210,140,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.2px;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.95}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 18px 80px}
+
+    header{
+      position:sticky; top:0; z-index:20;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px 0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(5,5,7,.86), rgba(5,5,7,.18));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:750;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:13px;
+    }
+
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .nav a{
+      padding:8px 10px;
+      border-radius:12px;
+    }
+    .nav a:hover{
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+    }
+
+    /* Hero cover */
+    .hero{
+      margin-top:18px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 30px 110px rgba(0,0,0,.55);
+    }
+
+    .cover{
+      position:relative;
+      aspect-ratio: 16 / 9;
+      width:100%;
+      background:#000;
+    }
+    .cover img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.01);
+    }
+    .cover::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 450px at 50% 85%, rgba(0,0,0,.35), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
+      pointer-events:none;
+    }
+
+    .heroText{
+      padding:18px 18px 20px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .heroText{grid-template-columns:1fr}
+      .cover{aspect-ratio: 4 / 3;}
+    }
+
+    h1{
+      margin:0;
+      font-size:44px;
+      letter-spacing:-.6px;
+      line-height:1.05;
+      text-transform:uppercase;
+    }
+    .logline{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.65;
+      max-width: 70ch;
+    }
+
+    .listenBox{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 18px;
+      padding:14px;
+    }
+
+    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--text);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      border-color: rgba(255,255,255,.18);
+    }
+
+    /* Bloom Fairy sponsor banner */
+    .sponsor{
+      margin-top:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      overflow:hidden;
+      position:relative;
+    }
+    .sponsor a{display:block}
+    .sponsorImg{
+      width:100%;
+      height:min(520px, 65vh);
+      object-fit:cover;
+      display:block;
+    }
+    .sponsor::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 380px at 30% 70%, rgba(0,0,0,.25), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55));
+      pointer-events:none;
+    }
+    .sponsorText{
+      position:absolute;
+      left:18px; right:18px;
+      bottom:16px;
+      padding:14px 14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+    }
+    .sponsorText .big{
+      margin:0;
+      font-size:28clamp(18px, 2.2vw, 28px);
+      font-weight:850;
+      letter-spacing:.2px;
+    }
+    .sponsorText .sub{
+      margin:6px 0 0;
+      color: rgba(255,255,255,.82);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.88);
+      font-size:12px;
+    }
+
+    /* Sections */
+    section{margin-top:22px}
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding:18px;
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .muted{color:var(--muted); line-height:1.65; font-size:14px}
+
+    /* Episodes */
+    .episodesHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .status{
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding:8px 10px;
+      border-radius:999px;
+    }
+
+    .ep{
+      padding:14px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .ep:first-of-type{border-top:0; padding-top:0}
+    .epTitle{
+      margin:0;
+      font-size:15px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .epMeta{
+      margin:6px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    audio{width:100%}
+
+    .small{font-size:12px; color:var(--muted); margin-top:10px}
+
+    footer{
+      margin-top:26px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      opacity:.08;
+      mix-blend-mode: overlay;
+      transform: translateZ(0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">NOWHERE</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#listen">Listen</a>
+        <a href="#episodes">Episodes</a>
+        <a href="#sponsor">Sponsor</a>
+      </nav>
+    </header>
+
+    <!-- NOWHERE hero with cover art -->
+    <div class="hero" id="listen">
+      <div class="cover">
+        <img src="/assets/nowhere-cover.png" alt="NOWHERE cover art" />
+      </div>
+
+      <div class="heroText">
+        <div>
+          <h1>NOWHERE</h1>
+          <p class="logline">
+            A girl and her uncle discover The Forgotten Place—and must fight to keep the good part alive,
+            and the bad part from getting out.
+          </p>
+        </div>
+
+        <aside class="listenBox" aria-label="Listen options">
+          <div class="muted" style="margin-bottom:6px; font-weight:700; color:rgba(255,255,255,.86)">
+            Listen now
+          </div>
+
+          <div class="btnRow">
+            <!-- RSS -->
+            <a class="btn primary" href="https://anchor.fm/s/10dcff838/podcast/rss" target="_blank" rel="noopener">Subscribe via RSS →</a>
+
+            <!-- Anchor page (best guess based on your feed ID) -->
+            <a class="btn" href="https://anchor.fm/s/10dcff838/podcast" target="_blank" rel="noopener">Listen on Anchor</a>
+
+            <!-- Scroll to episodes -->
+            <a class="btn" href="#episodes">Play Episodes</a>
+          </div>
+
+          <p class="small">
+            Episodes load automatically from your RSS feed below.
+          </p>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Bloom Fairy sponsor banner -->
+    <section class="sponsor" id="sponsor" aria-label="Bloom Fairy sponsor">
+      <!-- No URL yet, so we keep it clickable but safe -->
+      <a href="#" onclick="return sponsorClick(event)">
+        <img class="sponsorImg" src="/assets/bloom-fairy.png" alt="Bloom Fairy featured image" />
+        <div class="sponsorText">
+          <p class="big">Sponsored by Bloom Fairy</p>
+          <p class="sub">Get yours today and watch the world grow.</p>
+          <div class="pill">Clickable banner • link coming soon</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Episodes (RSS-powered) -->
+    <section class="card" id="episodes">
+      <div class="episodesHeader">
+        <h2 style="margin:0">Episodes</h2>
+        <div class="status" id="feedStatus">Loading RSS…</div>
+      </div>
+
+      <div id="episodeList">
+        <!-- Episodes injected here -->
+      </div>
+
+      <p class="small">
+        If episodes don’t load, it’s usually RSS CORS. This page uses a safe public RSS proxy fallback automatically.
+      </p>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> NOWHERE</div>
+      <div>Built on Netlify • Powered by RSS</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Sponsor click placeholder
+    function sponsorClick(e){
+      e.preventDefault();
+      alert("Bloom Fairy link is coming soon — just tell me the URL when it’s ready and I’ll wire it in.");
+      return false;
+    }
+
+    const FEED_URL = "https://anchor.fm/s/10dcff838/podcast/rss";
+    const statusEl = document.getElementById("feedStatus");
+    const listEl = document.getElementById("episodeList");
+
+    function setStatus(text){ statusEl.textContent = text; }
+
+    function stripHtml(html){
+      const div = document.createElement("div");
+      div.innerHTML = html || "";
+      return (div.textContent || div.innerText || "").trim();
+    }
+
+    function formatDate(dateStr){
+      try{
+        const d = new Date(dateStr);
+        return d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+      }catch(e){
+        return dateStr || "";
+      }
+    }
+
+    function getFirst(el, tag){
+      const node = el.getElementsByTagName(tag)[0];
+      return node ? node.textContent : "";
+    }
+
+    function getAttr(el, tag, attr){
+      const node = el.getElementsByTagName(tag)[0];
+      if(!node) return "";
+      return node.getAttribute(attr) || "";
+    }
+
+    function renderEpisodes(items){
+      if(!items || !items.length){
+        listEl.innerHTML = `<p class="muted">No episodes found in the RSS feed yet.</p>`;
+        return;
+      }
+
+      const html = items.map((item, idx) => {
+        const title = getFirst(item, "title") || `Episode ${idx+1}`;
+        const pubDate = formatDate(getFirst(item, "pubDate"));
+        const descRaw = getFirst(item, "description");
+        const desc = stripHtml(descRaw).slice(0, 240);
+        const audioUrl =
+          getAttr(item, "enclosure", "url") ||
+          getFirst(item, "link"); // fallback
+
+        const link = getFirst(item, "link") || audioUrl || "#";
+
+        return `
+          <div class="ep">
+            <div>
+              <p class="epTitle">${title}</p>
+              <p class="epMeta">${pubDate}${desc ? " • " + desc + (stripHtml(descRaw).length > 240 ? "…" : "") : ""}</p>
+            </div>
+
+            ${audioUrl ? `
+              <audio controls preload="none" src="${audioUrl}">
+                Your browser does not support the audio element.
+              </audio>
+              <div class="btnRow">
+                <a class="btn" href="${link}" target="_blank" rel="noopener">Open Episode</a>
+                <a class="btn" href="${audioUrl}" target="_blank" rel="noopener">Download Audio</a>
+              </div>
+            ` : `
+              <p class="muted">Audio link not found for this episode.</p>
+            `}
+          </div>
+        `;
+      }).join("");
+
+      listEl.innerHTML = html;
+    }
+
+    async function fetchXml(url){
+      const res = await fetch(url, { cache: "no-store" });
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      return await res.text();
+    }
+
+    async function loadFeed(){
+      setStatus("Loading RSS…");
+
+      // Attempt 1: direct fetch (may fail due to CORS)
+      try{
+        const xmlText = await fetchXml(FEED_URL);
+        const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+        const items = Array.from(xml.getElementsByTagName("item"));
+        renderEpisodes(items);
+        setStatus(`Loaded ${items.length} episode${items.length === 1 ? "" : "s"}`);
+        return;
+      }catch(e){
+        // continue to proxy
+      }
+
+      // Attempt 2: proxy fetch to bypass RSS CORS
+      try{
+        setStatus("Loading RSS (proxy)…");
+        const proxy = "https://api.allorigins.win/raw?url=" + encodeURIComponent(FEED_URL);
+        const xmlText = await fetchXml(proxy);
+        const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+        const items = Array.from(xml.getElementsByTagName("item"));
+        renderEpisodes(items);
+        setStatus(`Loaded ${items.length} episode${items.length === 1 ? "" : "s"}`);
+        return;
+      }catch(e){
+        setStatus("Couldn’t load RSS");
+        listEl.innerHTML = `
+          <p class="muted">
+            RSS couldn’t load in-browser (likely blocked). No worries — your site is still correct.
+            If you want this 100% reliable, I’ll give you a tiny Netlify Function that fetches the RSS server-side.
+          </p>
+          <div class="btnRow">
+            <a class="btn primary" href="${FEED_URL}" target="_blank" rel="noopener">Open RSS Feed →</a>
+            <a class="btn" href="https://anchor.fm/s/10dcff838/podcast" target="_blank" rel="noopener">Listen on Anchor</a>
+          </div>
+        `;
+      }
+    }
+
+    loadFeed();
+  </script>
+</body>
+</html>
